@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.CourseDAO">
+
+    <insert id="save" parameterType="com.baizhi.entity.Course">
+      insert into t_course values (#{id},#{marking},#{title},#{createDate},#{user_id})
+    </insert>
+
+
+    <select id="findByPage" resultType="com.baizhi.entity.Course">
+       select id,marking,title,createDate,user_id time from t_course limit #{start},#{rows}
+    </select>
+
+    <select id="findTotals" resultType="long">
+       select count(id) from t_course
+    </select>
+
+
+    <select id="findAll" resultType="com.baizhi.entity.Course">
+    	select * from t_course
+    </select>
+
+    <select id="queryOne" resultType="com.baizhi.entity.Course" parameterType="java.lang.String">
+    	select * from t_course where id=#{id}
+    </select>
+
+
+
+    <update id="update" parameterType="com.baizhi.entity.Course">
+    	update t_course set marking=#{marking},title=#{title},createDate=#{createDate},user_id=#{user_id}
+    	where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+    	delete from t_course where id=#{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDAO">
+
+    <!--添加-->
+    <insert id="save" parameterType="com.baizhi.entity.Album">
+        insert into t_album values (#{id},#{title},#{coverImg},#{count},#{author},#{broadCaet},#{content},#{releaseDate})
+
+    </insert>
+
+    <!-- 查询总条数 -->
+    <select id="findTotals" resultType="long">
+        select count(p.id) from t_album p inner join t_chapter c on p.id=c.album_id
+    </select>
+
+    <resultMap id="map" type="com.baizhi.entity.Album">
+        <id property="id" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="coverImg" column="coverImg"/>
+        <result property="count" column="count"/>
+        <result property="author" column="author"/>
+        <result property="broadCaet" column="broadCaet"/>
+        <result property="content" column="content"/>
+        <result property="releaseDate" column="releaseDate"/>
+        <collection property="children" ofType="com.baizhi.entity.Chapter">
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+            <result property="size" column="size"/>
+            <result property="duration" column="duration"/>
+            <result property="downLoadPath" column="downLoadPath"/>
+            <result property="upLoadDate" column="upLoadDate"/>
+        </collection>
+</resultMap>
+
+
+        <!-- treegrid展示 -->
+    <select id="findByPage"  resultMap="map">
+        select p.id pid,p.title ptitle,p.coverImg,p.count,p.author,p.broadCaet,p.content,p.releaseDate,c.*
+        from t_album p left join t_chapter c on p.id=c.album_id limit #{start},#{rows}
+    </select>
+
+</mapper>

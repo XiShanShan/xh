@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ArticleDAO">
+
+
+    <insert id="save" parameterType="com.baizhi.entity.Article">
+        insert into t_article values (#{id},#{title},#{content},#{imgPath},#{releaseDate},#{gurn_id})
+
+    </insert>
+
+    <select id="findByPage" resultType="com.baizhi.entity.Article">
+       select * from t_article limit #{start},#{rows}
+    </select>
+
+    <select id="findTotals" resultType="long">
+       select count(id) from t_article
+    </select>
+
+    <select id="findAll" resultType="com.baizhi.entity.Article">
+    	select * from t_article
+    </select>
+
+    <select id="queryOne" resultType="com.baizhi.entity.Article" parameterType="java.lang.String">
+    	select * from t_article where id=#{id}
+    </select>
+
+    <update id="update" parameterType="com.baizhi.entity.Article">
+    	update t_article  set title=#{title},content=#{content},imgPath=#{imgPath},releaseDate=#{releaseDate},gurn_id=#{gurn_id}
+    	where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+    	delete from t_article where id=#{id}
+    </delete>
+
+</mapper>

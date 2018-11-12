@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AdminDAO">
+    <!--登陆-->
+    <select id="queryAdmin" parameterType="com.baizhi.entity.Admin" resultType="com.baizhi.entity.Admin">
+          select * from t_Admin where name=#{name} and password=#{password}
+    </select>
+
+    <!-- 修改密码-->
+    <update id="update" parameterType="com.baizhi.entity.Admin">
+        update  t_admin set password=#{password} where name=#{name}
+    </update>
+
+    <!--查询单个-->
+    <select id="queryOne" resultType="com.baizhi.entity.Admin" parameterType="java.lang.String">
+        select * from t_admin where name=#{name}
+    </select>
+</mapper>
